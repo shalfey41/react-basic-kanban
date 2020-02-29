@@ -9,7 +9,7 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 
-import App from './components/App';
+import App from './components/App/App';
 
 // Initialize Firebase
 firebase.initializeApp({

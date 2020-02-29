@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { CardGrid } from "@vkontakte/vkui";
 import firebase from "firebase";
 
-import DeskItem from "./DeskItem";
+import DeskItem from "../DeskItem/DeskItem";
 
-const DeskList = ({ desks, onDelete, onLoadDesks }) => {
+const DeskList = ({ desks, onDelete, onLoadDesks, onDeskClick }) => {
   // Запрос в базу данных за досками
   useEffect(() => {
     const db = firebase.firestore();
@@ -30,7 +30,16 @@ const DeskList = ({ desks, onDelete, onLoadDesks }) => {
 
   return (
     <CardGrid>
-      {desks.map(({ id, name }) => <DeskItem onDelete={onDelete} key={id} id={id}>{name}</DeskItem>)}
+      {desks.map(({ id, name }) => (
+        <DeskItem
+          onClick={() => onDeskClick(id)}
+          onDelete={onDelete}
+          key={id}
+          id={id}
+        >
+          {name}
+        </DeskItem>
+      ))}
     </CardGrid>
   );
 };
@@ -42,6 +51,7 @@ DeskList.propTypes = {
   })).isRequired,
   onDelete: PropTypes.func.isRequired,
   onLoadDesks: PropTypes.func.isRequired,
+  onDeskClick: PropTypes.func.isRequired,
 };
 
 export default DeskList;

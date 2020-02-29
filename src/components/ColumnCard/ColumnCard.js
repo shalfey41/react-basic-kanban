@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Div, Button } from "@vkontakte/vkui";
 
-import './DeskItem.css';
+import './ColumnCard.css';
 import firebase from "firebase";
 
-const DeskItem = ({ id, children, onDelete }) => {
-  const deleteItem = () => {
+const ColumnCard = ({ children, id, onDelete }) => {
+  const deleteCard = () => {
     const db = firebase.firestore();
 
-    db.collection('desks')
+    db.collection('cards')
       .doc(id)
       .delete()
       .then(() => onDelete(id))
@@ -18,18 +18,18 @@ const DeskItem = ({ id, children, onDelete }) => {
 
   return (
     <Card size="l">
-      <Div className="DeskItem__content">
+      <Div className="ColumnCard__wrapper">
         {children}
-        <Button mode="destructive" onClick={deleteItem}>Удалить</Button>
+        <Button mode="destructive" onClick={deleteCard}>Удалить</Button>
       </Div>
     </Card>
   );
 };
 
-DeskItem.propTypes = {
+ColumnCard.propTypes = {
   id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   onDelete: PropTypes.func.isRequired,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
 };
 
-export default DeskItem;
+export default ColumnCard;
