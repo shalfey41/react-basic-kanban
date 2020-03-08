@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { CardGrid } from "@vkontakte/vkui";
+import { CardGrid, Div } from "@vkontakte/vkui";
 
 import ColumnCard from "../ColumnCard/ColumnCard";
 import CardCreate from "../CardCreate/CardCreate";
 import { getCards } from "../../actions";
 import Context from "../App/context";
+import './Cards.css';
 
 const Cards = ({ columnId }) => {
   const { cards, setCards } = useContext(Context);
@@ -16,11 +17,15 @@ const Cards = ({ columnId }) => {
   }, []);
 
   return (
-    <CardGrid>
-      {cards.map(({ id, name }) => <ColumnCard key={id} id={id}>{name}</ColumnCard>)}
+    <Fragment>
+      <CardGrid>
+        {cards.map(({ id, name }) => <ColumnCard key={id} id={id}>{name}</ColumnCard>)}
+      </CardGrid>
 
-      <CardCreate columnId={columnId} />
-    </CardGrid>
+      <Div className="Cards__createButton">
+        <CardCreate columnId={columnId} />
+      </Div>
+    </Fragment>
   );
 };
 

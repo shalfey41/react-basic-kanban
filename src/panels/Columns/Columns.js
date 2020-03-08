@@ -21,8 +21,8 @@ const Columns = () => {
 
       <Gallery
         className="Columns__list"
-        slideWidth="100%"
-        align="center"
+        slideWidth="85%"
+        align="left"
       >
         {columns.map(({ id, name }) => <Column key={id} name={name} id={id} />)}
 
