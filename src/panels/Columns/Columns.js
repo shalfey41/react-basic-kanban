@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import { PanelHeaderSimple, Gallery, PanelHeaderBack } from "@vkontakte/vkui";
+import { useRoute } from 'react-router5';
 
 import './Columns.css';
 import Column from "../../components/Column/Column";
@@ -8,16 +9,20 @@ import { getColumns } from "../../actions";
 import Context from "../../components/App/context";
 
 const Columns = () => {
-  const { goToDesks, setColumns, columns, activeDesk } = useContext(Context);
+  const { goToDesks, setColumns, columns, desks } = useContext(Context);
+  const { route: { params: { deskId } } } = useRoute();
+  const desk = desks.find(({ id }) => id === deskId) || {};
 
   // Запрос в базу данных за колонками
   useEffect(() => {
-    getColumns(activeDesk.id).then(setColumns);
-  }, []);
+    if (desk.id) {
+      getColumns(desk.id).then(setColumns);
+    }
+  }, [desk]);
 
   return (
     <Fragment>
-      <PanelHeaderSimple left={<PanelHeaderBack onClick={goToDesks} />}>Доска «{activeDesk.name}»</PanelHeaderSimple>
+      <PanelHeaderSimple left={<PanelHeaderBack onClick={goToDesks} />}>Доска {desk.name ? `«${desk.name}»` : ''}</PanelHeaderSimple>
 
       <Gallery
         className="Columns__list"
