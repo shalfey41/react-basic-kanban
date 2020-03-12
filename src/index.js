@@ -4,11 +4,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import connect from '@vkontakte/vk-connect';
 import * as backend from "./actions";
-import App from './components/App/App';
+import * as router from "./router";
+import App from './components/App/AppContainer';
 
 // Init VK  Mini App
 // connect.send('VKWebAppInit');
 
+const route = router.initialize();
 backend.initialize();
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App router={route} />, document.getElementById('root'));
