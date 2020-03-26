@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDesks } from "../../actions";
+import { apiGetDesks } from "../../api";
 import {pages} from "../../router";
 
 const useColumnsState = () => {
@@ -14,11 +14,6 @@ const useDesksState = () => {
   const [desks, setDesks] = useState([]);
   const addDesk = (desk) => setDesks([...desks, desk]);
   const removeDesk = (removeId) => setDesks(desks.filter(({ id }) => id !== removeId));
-
-  // Запрос в базу данных за досками
-  useEffect(() => {
-    getDesks().then(setDesks)
-  }, []);
 
   return { desks, addDesk, removeDesk, setDesks };
 };

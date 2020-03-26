@@ -1,22 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Div } from "@vkontakte/vkui";
+import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "react-router5";
 
 import '../Column/Column.css'
 import ColumnCreateForm from "./ColumnCreateForm";
-import { createColumn } from "../../actions";
-import Context from "../App/context";
+import { createColumn } from "../../actions/actions";
 
 const ColumnCreate = () => {
-  const { desks, addColumn } = useContext(Context);
+  const dispatch = useDispatch();
+  const desks = useSelector((state) => state.desks);
   const { route: { params: { deskId } } } = useRoute();
   const desk = desks.find(({ id }) => id === deskId) || {};
-
-  const createItem = (name) => (
-    createColumn(name, desk.id)
-      .then((doc) => addColumn({ id: doc.id, ...doc.data() }))
-      .catch(console.error)
-  );
+  const createItem = (name) => dispatch(createColumn(name, desk.id));
 
   return (
     <Div className="Column">

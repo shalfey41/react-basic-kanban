@@ -18,7 +18,7 @@ export const initialize = () => {
   firebase.analytics();
 };
 
-export const createDesk = (name) => {
+const createDesk = (name) => {
   const db = firebase.firestore();
 
   return db.collection('desks')
@@ -26,7 +26,7 @@ export const createDesk = (name) => {
     .then((docRef) => docRef.get());
 };
 
-export const getDesks = () => {
+const getDesks = () => {
   const db = firebase.firestore();
 
   return db.collection('desks').get()
@@ -44,7 +44,7 @@ export const getDesks = () => {
   });
 };
 
-export const deleteDesk = (id) => {
+const deleteDesk = (id) => {
   const db = firebase.firestore();
 
   return db.collection('desks')
@@ -52,7 +52,7 @@ export const deleteDesk = (id) => {
     .delete();
 };
 
-export const getColumns = (deskId) => {
+const getColumns = (deskId) => {
   const db = firebase.firestore();
 
   return db.collection('columns').where('deskId', '==', deskId).get()
@@ -73,7 +73,7 @@ export const getColumns = (deskId) => {
     });
 };
 
-export const deleteColumn = (id) => {
+const deleteColumn = (id) => {
   const db = firebase.firestore();
 
   return db.collection('columns')
@@ -81,7 +81,7 @@ export const deleteColumn = (id) => {
     .delete();
 };
 
-export const getCards = (columnId) => {
+const getCards = (columnId) => {
   const db = firebase.firestore();
 
   return db.collection('cards').where('columnId', '==', columnId).get()
@@ -102,7 +102,7 @@ export const getCards = (columnId) => {
     });
 };
 
-export const deleteCard = (id) => {
+const deleteCard = (id) => {
   const db = firebase.firestore();
 
   return db.collection('cards')
@@ -110,7 +110,7 @@ export const deleteCard = (id) => {
     .delete();
 };
 
-export const createCard = (name, columnId) => {
+const createCard = (name, columnId) => {
   const db = firebase.firestore();
 
   return db.collection('cards')
@@ -118,10 +118,22 @@ export const createCard = (name, columnId) => {
     .then((docRef) => docRef.get());
 };
 
-export const createColumn = (name, deskId) => {
+const createColumn = (name, deskId) => {
   const db = firebase.firestore();
 
   return db.collection('columns')
     .add({ name, deskId })
     .then((docRef) => docRef.get());
+};
+
+export const api = {
+  createDesk,
+  getDesks,
+  deleteDesk,
+  getColumns,
+  deleteColumn,
+  getCards,
+  deleteCard,
+  createCard,
+  createColumn,
 };
