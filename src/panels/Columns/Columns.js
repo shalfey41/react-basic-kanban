@@ -1,24 +1,25 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { PanelHeaderSimple, Gallery, PanelHeaderBack } from "@vkontakte/vkui";
+import {useDispatch, useSelector} from "react-redux";
 import { useRoute } from 'react-router5';
 
 import './Columns.css';
 import Column from "../../components/Column/Column";
 import ColumnCreate from "../../components/ColumnCreate/ColumnCreate";
-import { getColumns } from "../../actions";
-import Context from "../../components/App/context";
+import { fetchColumns } from "../../actions/actions";
 
 const Columns = () => {
-  const { goToDesks, setColumns, columns, desks } = useContext(Context);
+  const dispatch = useDispatch();
+  const columns = useSelector((state) => state.columns);
+  const desks = useSelector((state) => state.desks);
+  const goToDesks = () => window.history.back();
   const { route: { params: { deskId } } } = useRoute();
   const desk = desks.find(({ id }) => id === deskId) || {};
 
   // Запрос в базу данных за колонками
   useEffect(() => {
-    if (desk.id) {
-      getColumns(desk.id).then(setColumns);
-    }
-  }, [desk]);
+    dispatch(fetchColumns(deskId));
+  }, [dispatch, deskId]);
 
   return (
     <Fragment>

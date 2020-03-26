@@ -1,20 +1,21 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 import { CardGrid, Div } from "@vkontakte/vkui";
 
 import ColumnCard from "../ColumnCard/ColumnCard";
 import CardCreate from "../CardCreate/CardCreate";
-import { getCards } from "../../actions";
-import Context from "../App/context";
+import { fetchCards } from "../../actions/actions";
 import './Cards.css';
 
 const Cards = ({ columnId }) => {
-  const { cards, setCards } = useContext(Context);
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.cards);
 
   // Запрос в базу данных за карточками
   useEffect(() => {
-    getCards(columnId).then(setCards);
-  }, []);
+    dispatch(fetchCards(columnId))
+  }, [dispatch, columnId]);
 
   return (
     <Fragment>
