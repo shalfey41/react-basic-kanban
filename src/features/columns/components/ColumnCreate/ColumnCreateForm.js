@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, FormLayout, Input } from "@vkontakte/vkui";
 import Icon24Add from '@vkontakte/icons/dist/24/add';
@@ -53,4 +53,4 @@ ColumnCreateForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default ColumnCreateForm;
+export default memo(ColumnCreateForm);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 // import { useDispatch } from "react-redux";
 import { useRouter } from 'react-router5';
@@ -12,7 +12,7 @@ const ColumnCard = ({ children, id }) => {
   // const dispatch = useDispatch();
   // const deleteItem = () => dispatch(deleteCard(id));
   const router = useRouter();
-  const goToCardPage = () => router.navigate(pages.CARD, { cardId: id });
+  const goToCardPage = useCallback(() => router.navigate(pages.CARD, { cardId: id }), [router, id]);
 
   return (
     <Card size="l" mode="outline" onClick={goToCardPage}>
@@ -26,4 +26,4 @@ ColumnCard.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default ColumnCard;
+export default memo(ColumnCard);

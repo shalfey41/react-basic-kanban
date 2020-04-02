@@ -1,14 +1,15 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, memo } from 'react';
 import { View, Panel } from '@vkontakte/vkui';
 import { useRoute } from 'react-router5';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Desks from "../../../features/desks/panels/Desks/Desks";
-import Columns from "../../../features/columns/panels/Columns/Columns";
-import Card from '../../../features/card/panels/Card/Card';
 import { pages } from "../../../router";
 import { changeRoute } from "../../actions";
 import { getActivePanel, getPopout } from "../../selectors";
+
+import Desks from "../../../features/desks/panels/Desks/Desks";
+import Columns from "../../../features/columns/panels/Columns/Columns";
+import Card from '../../../features/card/panels/Card/Card';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,5 +46,5 @@ const App = () => {
 	);
 };
 
-export default App;
+export default memo(App);
 
