@@ -102,6 +102,16 @@ const getCards = (columnId) => {
     });
 };
 
+const getCard = (cardId) => {
+  const db = firebase.firestore();
+
+  return db.collection('cards').doc(cardId).get()
+    .then((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+};
+
 const deleteCard = (id) => {
   const db = firebase.firestore();
 
@@ -136,4 +146,5 @@ export const api = {
   deleteCard,
   createCard,
   createColumn,
+  getCard,
 };
