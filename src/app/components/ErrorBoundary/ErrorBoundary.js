@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -19,12 +19,16 @@ class ErrorBoundary extends React.Component {
     // logger(error, 'app crash');
   }
 
+  reloadPage() {
+    window.location.reload();
+  }
+
   render() {
     if (this.state.hasError) {
       return (
         <div>
           <h1>Ребята, произошло что-то странное</h1>
-          <button onClick={() => window.location.reload()}>Перезагрузить страницу</button>
+          <button onClick={this.reloadPage}>Перезагрузить страницу</button>
 
           {/*<button>Показать техническую информацию</button>*/}
           {/*this.state.stack*/}

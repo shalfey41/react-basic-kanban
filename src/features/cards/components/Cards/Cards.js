@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { CardGrid, Div } from "@vkontakte/vkui";
@@ -35,4 +35,4 @@ Cards.propTypes = {
   columnId: PropTypes.string.isRequired,
 };
 
-export default Cards;
+export default memo(Cards);

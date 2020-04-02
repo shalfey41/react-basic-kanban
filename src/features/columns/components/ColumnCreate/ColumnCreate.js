@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useCallback, memo } from 'react';
 import { Div } from "@vkontakte/vkui";
 import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "react-router5";
@@ -12,8 +12,8 @@ const ColumnCreate = () => {
   const dispatch = useDispatch();
   const desks = useSelector(getDesks);
   const { route: { params: { deskId } } } = useRoute();
-  const desk = desks.find(({ id }) => id === deskId) || {};
-  const createItem = (name) => dispatch(createColumn(name, desk.id));
+  const desk = useMemo(() => desks.find(({ id }) => id === deskId) || {}, [deskId, desks]);
+  const createItem = useCallback((name) => dispatch(createColumn(name, desk.id)), [desk, dispatch]);
 
   return (
     <Div className="Column">
@@ -22,4 +22,4 @@ const ColumnCreate = () => {
   );
 };
 
-export default ColumnCreate;
+export default memo(ColumnCreate);
