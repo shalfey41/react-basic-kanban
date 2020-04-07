@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
-const modes = {
+export const modes = {
   button: 'button',
   form: 'form',
 };
@@ -10,18 +10,19 @@ const statuses = {
   error: 'error',
 };
 
-export const useCreateForm = ({ onSubmit }) => {
-  const [mode, setMode] = useState(modes.button);
-  const [name, setName] = useState('');
+export const useCreateForm = ({ initialMode = modes.button, initialValue = '', onSubmit, onCancel }) => {
+  const [mode, setMode] = useState(initialMode);
+  const [name, setName] = useState(initialValue);
   const [status, setStatus] = useState(statuses.default);
   const onChangeInput = (event) => setName(event.target.value);
   const isButtonMode = mode === modes.button;
-  const reset = () => {
+  const reset = useCallback(() => {
+    onCancel && onCancel();
     setMode(modes.button);
     setStatus(statuses.default);
     setName('');
-  };
-  const submit = (event) => {
+  }, [onCancel]);
+  const submit = useCallback((event) => {
     if (event) {
       event.preventDefault();
     }
@@ -32,7 +33,7 @@ export const useCreateForm = ({ onSubmit }) => {
     }
 
     onSubmit(name).then(reset)
-  };
+  }, [name, onSubmit, reset]);
   const setFormMode = () => setMode(modes.form);
   const setButtonMode = () => setMode(modes.button);
 

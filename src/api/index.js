@@ -26,6 +26,12 @@ const createDesk = (name) => {
     .then((docRef) => docRef.get());
 };
 
+const editDesk = (id, name) => {
+  const db = firebase.firestore();
+
+  return db.collection('desks').doc(id).update({ name });
+};
+
 const getDesks = () => {
   const db = firebase.firestore();
 
@@ -79,6 +85,18 @@ const deleteColumn = (id) => {
   return db.collection('columns')
     .doc(id)
     .delete();
+};
+
+const editColumn = (id, name) => {
+  const db = firebase.firestore();
+
+  return db.collection('columns').doc(id).update({ name });
+};
+
+const editCard = (id, data = {}) => {
+  const db = firebase.firestore();
+
+  return db.collection('cards').doc(id).update(data);
 };
 
 const getCards = (columnId) => {
@@ -138,6 +156,7 @@ const createColumn = (name, deskId) => {
 
 export const api = {
   createDesk,
+  editDesk,
   getDesks,
   deleteDesk,
   getColumns,
@@ -146,5 +165,7 @@ export const api = {
   deleteCard,
   createCard,
   createColumn,
+  editColumn,
+  editCard,
   getCard,
 };

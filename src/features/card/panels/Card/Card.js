@@ -26,9 +26,7 @@ const Card = () => {
     <Fragment>
       <PanelHeaderSimple left={<PanelHeaderBack onClick={goToColumns} />}>Карточка {cardName ? `«${cardName}»` : ''}</PanelHeaderSimple>
 
-      {isLoading && <PanelSpinner />}
-
-      <CardContent />
+      {isLoading ? <PanelSpinner /> : <CardContent />}
     </Fragment>
   );
 };

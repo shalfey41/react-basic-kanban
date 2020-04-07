@@ -27,7 +27,26 @@ const reducer = (state = initialState, { type, payload }) => {
 
     case actionType.REMOVE_DESK: {
       const { removeId } = payload;
-      const list = state.desks.filter(({ id }) => id !== removeId);
+      const list = state.list.filter(({ id }) => id !== removeId);
+
+      return {
+        ...state,
+        list,
+      };
+    }
+
+    case actionType.REPLACE_DESK: {
+      const { id, name } = payload;
+      const list = state.list.map((desk) => {
+        if (desk.id !== id) {
+          return desk;
+        }
+
+        return {
+          ...desk,
+          name,
+        };
+      });
 
       return {
         ...state,
