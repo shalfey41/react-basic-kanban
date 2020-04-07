@@ -1,5 +1,9 @@
 .DeskItem__content {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+}
+
+.DeskItem__button {
+    border: none;
 }
