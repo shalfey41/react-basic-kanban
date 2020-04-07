@@ -3,7 +3,7 @@ import 'core-js/features/set';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { getStore } from "./app/store";
-// import connect from '@vkontakte/vk-connect';
+import vkBridge from '@vkontakte/vk-bridge';
 import * as backend from "./api";
 import * as router from "./router";
 import App from './app/components/App/AppContainer';
@@ -16,8 +16,8 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-// Init VK  Mini App
-// connect.send('VKWebAppInit');
+// Init VK Mini App
+vkBridge.send('VKWebAppInit');
 
 const route = router.initialize();
 const store = getStore();
